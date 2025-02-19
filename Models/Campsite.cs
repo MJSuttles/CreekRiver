@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace CreekRiver.Models;
 
-public class CampsiteType
+public class Campsite
 {
   public int Id { get; set; }
   [Required]
