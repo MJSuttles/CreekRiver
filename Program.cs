@@ -49,4 +49,16 @@ app.MapGet("/api/campsites/{id}", (CreekRiverDbContext db, int id) =>
     return Results.Ok(campsite);
 });
 
+app.MapDelete("/api/campsites/{id}", (CreekRiverDbContext db, int id) =>
+{
+    Campsite campsite = db.Campsites.SingleOrDefault(c => c.Id == id);
+    if (campsite == null)
+    {
+        return Results.NotFound();
+    }
+    db.Campsites.Remove(campsite);
+    db.SaveChanges();
+    return Results.NoContent();
+});
+
 app.Run();
