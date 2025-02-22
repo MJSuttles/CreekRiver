@@ -61,4 +61,19 @@ app.MapDelete("/api/campsites/{id}", (CreekRiverDbContext db, int id) =>
     return Results.NoContent();
 });
 
+app.MapPut("/api/campsites/{id}", (CreekRiverDbContext db, int id, Campsite campsite) =>
+{
+    Campsite campsiteToUpdate = db.Campsites.SingleOrDefault(c => c.Id == id);
+    if (campsiteToUpdate == null)
+    {
+        return Results.NotFound();
+    }
+    campsiteToUpdate.Nickname = campsite.Nickname;
+    campsiteToUpdate.ImageUrl = campsite.ImageUrl;
+    campsiteToUpdate.CampsiteTypeId = campsite.CampsiteTypeId;
+
+    db.SaveChanges();
+    return Results.NoContent();
+});
+
 app.Run();
